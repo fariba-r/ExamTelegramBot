@@ -154,7 +154,7 @@ async def start_exam_link(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             await update.message.reply_text("""
                 سلام و درورد 🖐😁
                 صفا اوردی🤩
-                لطفا با حفظ خونسردی تمام و کمال اسمتو بهمون بگو🤗""")
+                لطفا با حفظ خونسردی تمام و کمال نام و نام خانوادگیتو بهمون بگو🤗""")
 
             return FIRST_NAME
     else:
@@ -197,14 +197,14 @@ def main() -> None:
     quiz_conv_handler = ConversationHandler(
         entry_points=[CommandHandler('start_exam', start_exam)],
         states={
-            FIRST_NAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, set_first_name)],
-            LAST_NAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, set_last_name)],
+            FIRST_NAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, set_name)],
+            LAST_NAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, set_nationalcode)],
 
 
         },
         fallbacks=[CommandHandler('cancel', cancel),]
     )
-    application.add_handler(MessageHandler(filters.TEXT & filters.Regex('^[0-9]+$'), handle_question_number))
+    application.add_handler(MessageHandler(filters.TEXT & filters.Regex('^q[0-9]+$'), handle_question_number))
     # application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_question_number))
 
     application.add_handler(conv_handler)
@@ -240,8 +240,8 @@ def main() -> None:
     quiz_conv_handler1 = ConversationHandler(
         entry_points=[CommandHandler('start', start_exam_link)],
         states={
-            FIRST_NAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, set_first_name)],
-            LAST_NAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, set_last_name)],
+            FIRST_NAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, set_name)],
+            LAST_NAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, set_nationalcode)],
 
 
         },

@@ -5,15 +5,16 @@ import sqlite3
 
 FIRST_NAME, LAST_NAME, EXAM_NAME, EXAM_COUNT,EXAM_TIME, QUESTION_TEXT, CASE1, CASE2, CASE3, CASE4, ANSWER,SEECREATEDEXAM ,IMAGE = range(13)
 from exam2 import load_exam
-async def set_first_name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+async def set_name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data['first_name'] = update.message.text
-    await update.message.reply_text(f" {update.message.text} جان🥰 لطفا نام خانوادگیت رو هم بهم بگو  تا ازمونو شروع کنیم☺. ")
+    context.user_data['first_name']=''
+    await update.message.reply_text(f" {update.message.text} جان🥰 لطفا کد ملیت رو (به فارسی)  بهم بگو  تا ازمونو شروع کنیم☺. ")
     return LAST_NAME
 
 
 
-async def set_last_name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    context.user_data['last_name'] = update.message.text
+async def set_nationalcode(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    context.user_data['national_code'] = update.message.text
     if update.message.from_user.username:
         username = update.message.from_user.username
 
@@ -29,13 +30,13 @@ async def set_last_name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
     user = c.fetchone()
 
     if user is None:
-        c.execute('INSERT INTO user (firstname, lastname,tel_id ,username) VALUES (?, ?,?,?)',
-                  (context.user_data['first_name'], context.user_data['last_name'],tel_id,username))
+        c.execute('INSERT INTO user (firstname, lastname,national_code,tel_id ,username) VALUES (?, ?,?,?,?)',
+                  (context.user_data['first_name'],'', context.user_data['national_code'],tel_id,username))
         context.user_data['user_id'] = c.lastrowid
         conn.commit()
     else:
-        c.execute('UPDATE user SET firstname = ?, lastname = ?, tel_id = ?, username = ? WHERE tel_id = ?',
-                  (context.user_data['first_name'], context.user_data['last_name'], tel_id, username, tel_id))
+        c.execute('UPDATE user SET firstname = ?, lastname = ?, national_code = ?, tel_id = ?, username = ? WHERE tel_id = ?',
+                  (context.user_data['first_name'], '',context.user_data['national_code'], tel_id, username, tel_id))
         conn.commit()
         context.user_data['user_id'] = user[0]
 

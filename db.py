@@ -9,6 +9,7 @@ def setup_database():
             tel_id VARCHAR(20) NOT NULL,
             firstname TEXT NOT NULL,
             lastname TEXT NOT NULL,
+            national_code NVARCHAR(20)  NULL,
             username TEXT
         )
     ''')

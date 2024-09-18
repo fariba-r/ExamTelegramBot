@@ -50,7 +50,7 @@ async def start_exam(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     await update.message.reply_text("""
     سلام و درورد 🖐😁
     صفا اوردی🤩
-    لطفا با حفظ خونسردی تمام و کمال اسمتو بهمون بگو🤗
+    لطفا با حفظ خونسردی تمام و کمال نام و نام خانوادگیتو بهمون بگو🤗
 
     """)
 
@@ -229,7 +229,7 @@ def get_user_results_for_exam(exam_id):
 
     # Fetch user information and their result for the specified exam
     c.execute('''
-    SELECT user.firstname, user.lastname,user.username, result.correct, result.falsee, result.nulll, result.percentt
+    SELECT user.firstname, user.lastname,user.national_code,user.username, result.correct, result.falsee, result.nulll, result.percentt
     FROM user
     JOIN result ON user.id = result.user_id
     WHERE result.exam_id = ?
@@ -264,13 +264,13 @@ async def get_exam_results(update: Update, context: ContextTypes.DEFAULT_TYPE) -
             with open(f"{exam_id}.txt", 'a', encoding='utf-8') as file:
                 for row in user_results:
                     message += f"دانش اموز شماره ی : {count}\n"
-                    message += f"نام: {row[0]}\n"
-                    message += f"نام خانوادگی: {row[1]}\n"
-                    message += f"یوزر نیم: {row[2]}\n"
-                    message += f"تعداد سوالات درست: {row[3]}\n"
-                    message += f"تعداد سوالات غلط: {row[4]}\n"
-                    message += f"تعداد سوالات نزده: {row[5]}\n"
-                    message += f"درصد ازمون: {row[6]}\n\n"
+                    message += f"نام و نام خانوادگی: {row[0]}\n"
+                    message += f"کد ملی: {row[2]}\n"
+                    message += f"یوزر نیم: {row[3]}\n"
+                    message += f"تعداد سوالات درست: {row[4]}\n"
+                    message += f"تعداد سوالات غلط: {row[5]}\n"
+                    message += f"تعداد سوالات نزده: {row[6]}\n"
+                    message += f"درصد ازمون: {row[7]}\n\n"
                     message += "----------------------------------------------\n\n"
 
                     file.write(message + '\n')

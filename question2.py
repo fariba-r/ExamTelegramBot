@@ -600,7 +600,7 @@ async def handle_question_number(update: Update, context: CallbackContext) -> in
         await context.bot.delete_message(chat_id=chat_id, message_id=message_id)
 
 
-        question_number = int(update.message.text) - 1
+        question_number = int(update.message.text.strip().lower().replace('q', '')) - 1
         if 0 <= question_number < len(context.user_data['exam_questions']):
             # Valid question number, navigate to that question
             context.user_data['current_question_index'] = question_number
