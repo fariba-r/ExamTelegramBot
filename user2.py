@@ -7,7 +7,7 @@ FIRST_NAME, LAST_NAME, EXAM_NAME, EXAM_COUNT,EXAM_TIME, QUESTION_TEXT, CASE1, CA
 from exam2 import load_exam
 async def set_name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data['first_name'] = update.message.text
-    context.user_data['first_name']=''
+    context.user_data['last_name']=''
     await update.message.reply_text(f" {update.message.text} جان🥰 لطفا کد ملیت رو (به فارسی)  بهم بگو  تا ازمونو شروع کنیم☺. ")
     return LAST_NAME
 
